@@ -1,22 +1,11 @@
-from math import remainder
-from async_timeout import timeout
-from ..models import LogsModel
+# from ..models import LogsModel
+from genericpath import exists
 from django.contrib.auth.models import Group
 from django.conf import settings
 from django.utils import timezone
-from datetime import timedelta
-import requests
 import redis
-from redis_rate_limit import RateLimit, TooManyRequests
-
 from django.core.exceptions import PermissionDenied
-from django.http import HttpResponseForbidden
-from django.http import response
 from django.http import HttpResponse
-# from ratelimit import time_bucketed
-# from ratelimit import gcra
-# from ratelimit import limits, RateLimitException
-import traceback
 # ---------------------------------
 
 redis_config = {
@@ -33,7 +22,7 @@ def get_connection():
 
 class LogsMiddleware(object):
 
-    def __init__(self, get_response=None):
+    def __init__(self, get_response):
         self.get_response = get_response
 
     def __call__(self, request):
@@ -51,32 +40,22 @@ class LogsMiddleware(object):
             pythonLogging(logs_data["ip_address"], logs_data["timestamp"])
             
             # Task 2
-            redis_middleware(logs_data["ip_address"])
+            redis_middleware(logs_data["ip_address"], request)
             
             # Task 3
-            # group = Group.objects.get(name=request.user.groups.all()[0])
-            # user_gorup_middleware(logs_data["ip_address"], group)
+            if request.user is exists:
+                group = Group.objects.get(name=request.user.groups.all()[0])
+                user_gorup_middleware(logs_data["ip_address"], group)
 
+            else:
+                group = "Gold"
+                user_gorup_middleware(logs_data["ip_address"], group)
 
         except Exception as e:
-            pass
+            raise e
 
         response = self.get_response(request)
         return response
-    
-    def process_exception(self, request, exception):
-        print("heyyy")
-        if exception:
-            # Format your message here
-            message = "**{url}**\n\n{error}\n\n````{tb}````".format(
-                url=request.build_absolute_uri(),
-                error=repr(exception),
-                tb=traceback.format_exc()
-            )
-            # Do now whatever with this message
-            # e.g. requests.post(<slack channel/teams channel>, data=message)
-            
-        return HttpResponse("Error processing the request.", status=500)
     
 
 # Task 1
@@ -87,7 +66,7 @@ def pythonLogging(user_ip, timestamp):
     
 
 # Task 2
-def redis_middleware(user_ip):
+def redis_middleware(user_ip, request):
     
     try:
         r = get_connection()
@@ -95,16 +74,11 @@ def redis_middleware(user_ip):
         
         if r.get(user_ip) is not None:
             total_calls = r.get(user_ip)
-            print("Tayyab")
-            print(total_calls)
             if int(total_calls) >= 5:
-                raise KeyError()
-                # process_exception(self, request, exception)
-                # return HttpResponse("Error processing the request.", status=500)
+                raise PermissionDenied
             
             else:
                 total_calls = int(total_calls) + 1
-                print("total_calls in nested else: ", total_calls)
                 remaining_key_time =  r.ttl(user_ip)
                 r.set(user_ip, total_calls, ex=remaining_key_time)
         else:
@@ -113,9 +87,8 @@ def redis_middleware(user_ip):
         r.set(user_ip, total_calls, ex=60)
         
     except Exception as e:
-        print("Exception Raised")
-        # process_exception(self, request, exception)
-        # return HttpResponse("Error processing the request.", status=500)
+        raise e
+        # pass
     
 
 # Task 3
@@ -153,18 +126,3 @@ def access_endpoints(user_ip, time):
     except Exception as e:
         return HttpResponse(status=201)
     
-    
-    
-def process_exception(self, request, exception):
-    print("heyyy")
-    if exception:
-        # Format your message here
-        message = "**{url}**\n\n{error}\n\n````{tb}````".format(
-            url=request.build_absolute_uri(),
-            error=repr(exception),
-            tb=traceback.format_exc()
-        )
-        # Do now whatever with this message
-        # e.g. requests.post(<slack channel/teams channel>, data=message)
-        
-    return HttpResponse("Error processing the request.", status=500)
