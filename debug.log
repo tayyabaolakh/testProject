@@ -1,0 +1,29 @@
+Init log from view
+(0.015) SELECT "django_session"."session_key", "django_session"."session_data", "django_session"."expire_date" FROM "django_session" WHERE ("django_session"."expire_date" > '2022-09-29 17:02:08.240696' AND "django_session"."session_key" = 'wrrvvpyqu01oah6wcic782zs1axjerjj') LIMIT 21; args=('2022-09-29 17:02:08.240696', 'wrrvvpyqu01oah6wcic782zs1axjerjj'); alias=default
+(0.000) SELECT "auth_user"."id", "auth_user"."password", "auth_user"."last_login", "auth_user"."is_superuser", "auth_user"."username", "auth_user"."first_name", "auth_user"."last_name", "auth_user"."email", "auth_user"."is_staff", "auth_user"."is_active", "auth_user"."date_joined" FROM "auth_user" WHERE "auth_user"."id" = 1 LIMIT 21; args=(1,); alias=default
+(0.000) SELECT COUNT(*) AS "__count" FROM "testApp_logsmodel"; args=(); alias=default
+(0.000) SELECT COUNT(*) AS "__count" FROM "testApp_logsmodel"; args=(); alias=default
+(0.000) SELECT "testApp_logsmodel"."id", "testApp_logsmodel"."ip_address", "testApp_logsmodel"."timestamp" FROM "testApp_logsmodel" ORDER BY "testApp_logsmodel"."id" DESC; args=(); alias=default
+"GET /admin/testApp/logsmodel/ HTTP/1.1" 200 5426
+Init log from view
+(0.000) SELECT "django_session"."session_key", "django_session"."session_data", "django_session"."expire_date" FROM "django_session" WHERE ("django_session"."expire_date" > '2022-09-29 17:02:08.319302' AND "django_session"."session_key" = 'wrrvvpyqu01oah6wcic782zs1axjerjj') LIMIT 21; args=('2022-09-29 17:02:08.319302', 'wrrvvpyqu01oah6wcic782zs1axjerjj'); alias=default
+(0.000) SELECT "auth_user"."id", "auth_user"."password", "auth_user"."last_login", "auth_user"."is_superuser", "auth_user"."username", "auth_user"."first_name", "auth_user"."last_name", "auth_user"."email", "auth_user"."is_staff", "auth_user"."is_active", "auth_user"."date_joined" FROM "auth_user" WHERE "auth_user"."id" = 1 LIMIT 21; args=(1,); alias=default
+"GET /admin/jsi18n/ HTTP/1.1" 200 3343
+File C:\Users\aolak\AppData\Local\Programs\Python\Python39\Lib\importlib\resources.py first seen with mtime 1630337724.0
+File C:\Users\aolak\Desktop\Test Project\venv\Lib\site-packages\django\contrib\messages\storage\cookie.py first seen with mtime 1664465507.8830469
+File C:\Users\aolak\Desktop\Test Project\venv\Lib\site-packages\django\contrib\messages\storage\session.py first seen with mtime 1664465507.8830469
+File C:\Users\aolak\Desktop\Test Project\venv\Lib\site-packages\django\conf\locale\en\formats.py first seen with mtime 1664465504.5115373
+File C:\Users\aolak\Desktop\Test Project\venv\Lib\site-packages\django\contrib\auth\context_processors.py first seen with mtime 1664465506.0634224
+File C:\Users\aolak\AppData\Local\Programs\Python\Python39\Lib\zipfile.py first seen with mtime 1630337726.0
+File C:\Users\aolak\Desktop\Test Project\venv\Lib\site-packages\django\contrib\messages\context_processors.py first seen with mtime 1664465507.8674176
+File C:\Users\aolak\Desktop\Test Project\venv\Lib\site-packages\django\conf\locale\en\__init__.py first seen with mtime 1664465504.5115373
+File C:\Users\aolak\Desktop\Test Project\venv\Lib\site-packages\django\contrib\messages\storage\fallback.py first seen with mtime 1664465507.8830469
+File C:\Users\aolak\Desktop\Test Project\venv\Lib\site-packages\tzdata\zoneinfo\__init__.py first seen with mtime 1664465502.630616
+File C:\Users\aolak\Desktop\Test Project\venv\Lib\site-packages\django\contrib\sessions\serializers.py first seen with mtime 1664465508.4163878
+File C:\Users\aolak\AppData\Local\Programs\Python\Python39\Lib\importlib\_common.py first seen with mtime 1630337724.0
+File C:\Users\aolak\Desktop\Test Project\venv\Lib\site-packages\tzdata\__init__.py first seen with mtime 1664465502.535778
+File C:\Users\aolak\Desktop\Test Project\venv\Lib\site-packages\django\contrib\staticfiles\storage.py first seen with mtime 1664465508.979807
+File C:\Users\aolak\Desktop\Test Project\venv\Lib\site-packages\django\template\context_processors.py first seen with mtime 1664465509.4194822
+File C:\Users\aolak\Desktop\Test Project\TestProject\settings.py previous mtime: 1664470859.9784217, current mtime: 1664476504.4600623
+C:\Users\aolak\Desktop\Test Project\TestProject\settings.py notified as changed. Signal results: [(<function template_changed at 0x0000026C870E0D30>, None), (<function translation_file_changed at 0x0000026C87AD0DC0>, None)].
+C:\Users\aolak\Desktop\Test Project\TestProject\settings.py changed, reloading.
